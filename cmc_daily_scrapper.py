@@ -1,6 +1,6 @@
 import json
 import pytz
-import MySqlDb
+import MySQLdb
 import requests
 import datetime
 from database import Database
@@ -23,13 +23,14 @@ def get_cmc_data():
     return data
 
 def update_db(db, coin_data):
-    query_str = """SELECT std_name from currencies where std_name = %s"""
-    		% coin_data['Name']
+    query_str = """SELECT std_name from currencies where std_name = %s""" % coin_data['Name']
     data = db.query(query_str)
     for each in data:
     	print each
     if len(data) > 0:
     	# update
+        pass
+        print 'update'
     else:
     	# insert
     	insert_query = """INSERT into currencies VALUES('%s','%s','%s','%d',

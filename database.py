@@ -7,7 +7,7 @@ import json
 import datetime
 import pytz
 import time
-import cred
+import settings
 
 import MySQLdb
 
@@ -15,7 +15,7 @@ import MySQLdb
 class Database:
 
     def __init__(self):
-    	self.host = settings.host
+        self.host = settings.host
     	self.user_name = settings.user_name
     	self.password = settings.password
     	self.db = settings.database
