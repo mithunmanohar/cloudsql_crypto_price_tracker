@@ -14,13 +14,13 @@ import MySQLdb
 
 class Database:
 
-    host = settings.host
-    user_name = settings.user_name
-    password = settings.password
-    db = settings.database
-
     def __init__(self):
-        self.connection = MySQLdb.connect(self.host, self.user, self.password, self.db)
+    	self.host = settings.host
+    	self.user_name = settings.user_name
+    	self.password = settings.password
+    	self.db = settings.database
+        self.connection = MySQLdb.connect(self.host, self.user,
+        				  self.password, self.db)
         self.cursor = self.connection.cursor()
 
     def insert(self, query):
