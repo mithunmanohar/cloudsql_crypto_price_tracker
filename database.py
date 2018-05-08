@@ -16,7 +16,8 @@ import settings
 class Database:
 
     def __init__(self):
-    	self.host="gg"
+
+        self.host = settings.host
     	self.user_name = settings.user_name
     	self.password = settings.password
     	self.db = settings.database

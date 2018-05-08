@@ -1,6 +1,11 @@
 import json
+<<<<<<< HEAD
 #import pytz
 #import MySQLdb
+=======
+import pytz
+import MySQLdb
+>>>>>>> e065159db457d18566399c7b0c35da315d11c9d4
 import requests
 import datetime
 from database import Database
@@ -29,7 +34,12 @@ def update_db(db, coin_data):
     	print each
     if len(data) > 0:
     	# update
+<<<<<<< HEAD
     	pass
+=======
+        pass
+        print 'update'
+>>>>>>> e065159db457d18566399c7b0c35da315d11c9d4
     else:
     	# insert
     	insert_query = """INSERT into currencies VALUES('%s','%s','%s','%d',
