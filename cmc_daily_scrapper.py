@@ -1,11 +1,11 @@
 import json
-import pytz
-import MySqlDb
+#import pytz
+#import MySQLdb
 import requests
 import datetime
 from database import Database
-import pandas as pd
-from bs4 import BeautifulSoup
+#import pandas as pd
+#from bs4 import BeautifulSoup
 
 
 def connect_to_db():
@@ -23,17 +23,18 @@ def get_cmc_data():
     return data
 
 def update_db(db, coin_data):
-    query_str = """SELECT std_name from currencies where std_name = %s"""
-    		% coin_data['Name']
+    query_str = """SELECT std_name from currencies where std_name = %s""" % coin_data['Name']
     data = db.query(query_str)
     for each in data:
     	print each
     if len(data) > 0:
     	# update
+    	pass
     else:
     	# insert
     	insert_query = """INSERT into currencies VALUES('%s','%s','%s','%d',
-    			'%f','%f','%s','%s')"""%("dsad","das","dasd",21,21.11,21.11,"1312","dassda")
+    			'%f','%f','%s','%s')"""%("dsad","das","dasd",
+    			21,21.11,21.11,"1312","dassda")
 
 def process_data(db, data):
     now = datetime.datetime.now()
