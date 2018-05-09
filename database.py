@@ -10,7 +10,7 @@ import datetime
 import time
 import settings
 
-#import MySQLdb
+import MySQLdb
 
 
 class Database:
@@ -21,8 +21,9 @@ class Database:
     	self.user_name = settings.user_name
     	self.password = settings.password
     	self.db = settings.database
-        self.connection = MySQLdb.connect(self.host, self.user,
+        self.connection = MySQLdb.connect(self.host, self.user_name,
         				  self.password, self.db)
+        print self.connection, dir(self.connection)
         self.cursor = self.connection.cursor()
 
     def insert(self, query):

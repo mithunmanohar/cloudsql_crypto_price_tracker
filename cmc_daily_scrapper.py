@@ -8,7 +8,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 
-def connect_to_db():
+def get_db():
     db = Database()                                                             # connect to your google cloud-sql database
     return db
 
@@ -32,9 +32,9 @@ def get_cmc_data():
 def update_db(db, coin_data):
     query_str = """SELECT std_name from currencies where std_name = %s""" % coin_data['Name']
     data = db.query(query_str)
-    for each in data:
-    	print each
-    	break
+    #for each in data:
+    #	print each
+    #	break
     if len(data) > 0:
     	# update
         print 'update'
@@ -50,7 +50,7 @@ def process_data(db, data):
     for rec in data:
 	#update_db(db, rec)
         print rec
-	
+        break	
         #res = db.cryptodata.find({"name" : coin})
         #if res.count() > 0:
             #up_data = {}
@@ -88,8 +88,8 @@ def process_data(db, data):
 if __name__ == '__main__':
     print 'getting data'
     data = get_cmc_data()
-    print 'got data', data
-    #db = get_db()
+    #gprint 'got data', data
+    db = get_db()
     print 'go tdb'
-    #process_data(db, data)
+    process_data(db, data)
     print 'finished'
