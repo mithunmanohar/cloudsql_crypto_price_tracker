@@ -34,14 +34,15 @@ def update_db(db, coin_data):
     data = db.query(query_str)
     for each in data:
     	print each
+    	break
     if len(data) > 0:
     	# update
-        pass
         print 'update'
     else:
     	# insert
     	insert_query = """INSERT into currencies VALUES('%s','%s','%s','%d',
-    			'%f','%f','%s','%s')"""%("dsad","das","dasd",21,21.11,21.11,"1312","dassda")
+    			'%f','%f','%s','%s')"""%("dsad","das","dasd",
+    			21,21.11,21.11,"1312","dassda")
 
 def process_data(db, data):
     now = datetime.datetime.now()
