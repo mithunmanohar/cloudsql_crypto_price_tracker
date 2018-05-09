@@ -13,13 +13,20 @@ def connect_to_db():
     return db
 
 def get_cmc_data():
+    
     url = "https://coinmarketcap.com/all/views/all/"
+    print 'url', url
     html = requests.get(url).text
+    print 'got html resp'
     soup = BeautifulSoup(html, 'lxml')
     table = soup.find_all('table')[0]
+    print 'got html tabkle'
     df = pd.read_html(str(table))
+    print 'created df'
     k = (df[0].to_json(orient='records'))
+    print 'converted df to json'
     data = json.loads(k)
+    print 'retrun json'
     return data
 
 def update_db(db, coin_data):
@@ -40,7 +47,8 @@ def process_data(db, data):
     now = datetime.datetime.now()
     date_today = now.strftime("%Y-%m-%d")
     for rec in data:
-	update_db(db, rec)
+	#update_db(db, rec)
+        print rec
 	
         #res = db.cryptodata.find({"name" : coin})
         #if res.count() > 0:
@@ -77,6 +85,10 @@ def process_data(db, data):
 
 
 if __name__ == '__main__':
+    print 'getting data'
     data = get_cmc_data()
-    db = get_db()
-    process_data(db, data)
+    print 'got data', data
+    #db = get_db()
+    print 'go tdb'
+    #process_data(db, data)
+    print 'finished'
