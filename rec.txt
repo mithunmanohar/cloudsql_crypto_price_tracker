@@ -1,0 +1,50 @@
+{
+	u '#': 1,
+	 u 'na': u 'BTC Bitcoin', 
+	 u 'Price': u '$9178.63', 
+	 u '% 7d': u '1.17%', 
+	 u 'Volume (24h)': u '$7,381,170,000', 
+	 u '% 24h': u '-2.37%',
+	  u 'Market Cap': u '$156,246,212,230',
+	   u '% 1h': u '-0.74%',
+	    u 'Unnamed: 10': u 'Add to Watchlist Remove from Watchlist Watchlist full! View Chart View Markets View Historical Data',
+	     u 'Symbol': u 'BTC', 
+
+	     u 'Circulating Supply': u '17022825'
+}
+
+use database;
+show tables;
+
+create table crypto_data(
+   tutorial_id INT NOT NULL AUTO_INCREMENT,
+   tutorial_title VARCHAR(100) NOT NULL,
+   tutorial_author VARCHfAR(40) NOT NULL,
+   submission_date DATE,
+   PRIMARY KEY ( tutorial_id )
+);
+
+
+ALTER TABLE currencies
+MODIFY id INT, 
+DROP PRIMARY KEY, 
+ADD PRIMARY KEY (name);
+
+
+CREATE TABLE coin_history(
+name varchar(255),
+std_name  varchar(255),
+date DATE,
+ticker  varchar(255),
+rank  int(11),
+price decimal(13,2),
+market_cap decimal(13,2),
+7_day_change decimal(5,2),
+24_hr_change decimal(5,2),
+1_hr_change decimal(5,2)
+);
+
+alter table coin_history ADD 24_volume int(17);
+
+
+
