@@ -81,7 +81,7 @@ def insert_data(db, data, his_date):
             query_string = "INSERT INTO %s ( %s ) VALUES ( %s )" % (table, columns, placeholders)
             query_string = query + tuple(up_data.values())
             print query_string
-            db.insert(query_string.strip('Low Vol')
+            db.insert(query_string.strip('Low Vol'))
 
 if __name__ == '__main__':
     #data = get_cmc_data()
