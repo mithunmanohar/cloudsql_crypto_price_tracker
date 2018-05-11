@@ -79,7 +79,7 @@ def insert_data(db, data, his_date):
             placeholders = ', '.join(['%s'] * len(up_data))
             columns = ', '.join(up_data.keys())
             query_string = "INSERT INTO %s ( %s ) VALUES ( %s )" % ('coin_history', columns, placeholders)
-            query_string = query + tuple(up_data.values())
+            query_string = query_string + tuple(up_data.values())
             print query_string
             db.insert(query_string.strip('Low Vol'))
 
