@@ -47,7 +47,7 @@ def insert_data(db, data, his_date):
         if len(res) > 0:
             up_data = {}
             up_data['date'] = his_date
-            up_data['rank'] = rec['#'].strip(",")
+            up_data['rank'] = rec['#']
             up_data['ticker'] = rec['Symbol']
             up_data['price'] = rec['Price'].strip(",")
             up_data['7_day_change'] = rec['% 7d'].strip("%")
@@ -67,7 +67,7 @@ def insert_data(db, data, his_date):
             up_data = {}
             up_data['name'] = coin
             up_data['date'] = his_date
-            up_data['rank'] = rec['#'].strip(",")
+            up_data['rank'] = rec['#']
             up_data['ticker'] = rec['Symbol']
             up_data['price'] = rec['Price'].strip(",")
             up_data['7_day_change'] = rec['% 7d'].strip("%")
