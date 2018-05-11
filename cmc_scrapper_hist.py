@@ -44,7 +44,7 @@ def insert_data(db, data, his_date):
         q_string = """SELECT name from coin_history where name= '%s'"""%coin
         res = db.query(q_string)
 
-        if res.count() > 0:
+        if len(res) > 0:
             up_data = {}
             up_data['date'] = his_date
             up_data['rank'] = rec['#'].strip(",")
