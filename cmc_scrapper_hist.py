@@ -49,13 +49,13 @@ def insert_data(db, data, his_date):
             up_data['date'] = his_date
             up_data['rank'] = rec['#']
             up_data['ticker'] = rec['Symbol']
-            up_data['price'] = rec['Price'].strip(",")
+            up_data['price'] = rec['Price']
             up_data['7_day_change'] = rec['% 7d'].strip("%")
-            up_data['24_hr_volume'] = rec['Volume (24h)'].strip(",")
+            up_data['24_hr_volume'] = rec['Volume (24h)']
             up_data['24_hr_change'] = rec['% 24h'].strip("%")
-            up_data['market_cap'] = rec['Market Cap'].strip(",")
+            up_data['market_cap'] = rec['Market Cap']
             up_data['1_hr_change'] = rec['% 1h'].strip("%")
-            up_data['circulating_supply']  = rec['Circulating Supply'].strip(",")
+            up_data['circulating_supply']  = rec['Circulating Supply']
             query_string = """UPDATE TABLE coin_history SET {} """.format(','.join('{}=%s'.format(k) for k in up_data))
             query_string = query_string % tuple(up_data.values())
             query_string = query_string + """ WHERE name = '%s' """ % coin
@@ -69,13 +69,13 @@ def insert_data(db, data, his_date):
             up_data['date'] = his_date
             up_data['rank'] = rec['#']
             up_data['ticker'] = rec['Symbol']
-            up_data['price'] = rec['Price'].strip(",")
+            up_data['price'] = rec['Price']
             up_data['7_day_change'] = rec['% 7d'].strip("%")
             up_data['24_hr_volume'] = rec['Volume (24h)'].strip("%")
             up_data['24_hr_change'] = rec['% 24h'].strip("%")
-            up_data['market_cap'] = rec['Market Cap'].strip(",")
+            up_data['market_cap'] = rec['Market Cap']
             up_data['1_hr_change'] = rec['% 1h'].strip("%")
-            up_data['circulating_supply']  = rec['Circulating Supply'].strip(",")
+            up_data['circulating_supply']  = rec['Circulating Supply']
             placeholders = ', '.join(['%s'] * len(up_data))
             columns = ', '.join(myDict.keys())
             query_string = "INSERT INTO %s ( %s ) VALUES ( %s )" % (table, columns, placeholders)
