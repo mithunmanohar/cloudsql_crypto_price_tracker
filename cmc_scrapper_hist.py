@@ -41,7 +41,7 @@ def insert_data(db, data, his_date):
         coin = rec["Name"]
 
         #res = db.cryptodata.find({db.cryptodata.name : "/^"+coin+"$/"})
-        q_string = """SELECT coin_name from coin_history where coin_name= '%s'"""%coin
+        q_string = """SELECT coin_name from coin_history where name= '%s'"""%coin
         res = db.query(q_string)
 
         if res.count() > 0:
