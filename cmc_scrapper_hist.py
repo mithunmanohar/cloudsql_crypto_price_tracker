@@ -2,13 +2,13 @@ __author__ = "samrohn77@gmail.com"
 
 from bs4 import BeautifulSoup
 import pandas as pd
-from pymongo import MongoClient
+#from pymongo import MongoClient
 import requests
 import json
 import datetime
 import pytz
 import time
-import database
+from database import Database
 
 
 dates = ['20130428', '20130505','20130512', '20130519','20130526', '20130602', '20130609','20130616', '20130623','20130630','20130707','20130714','20130721','20130728',
