@@ -41,7 +41,7 @@ def insert_data(db, data, his_date):
         coin = rec["Name"]
 
         #res = db.cryptodata.find({db.cryptodata.name : "/^"+coin+"$/"})
-        q_string = """SELECT coin_name from coin_history where coin_name= "%s""""%coin
+        q_string = """SELECT coin_name from coin_history where coin_name= '%s'"""%coin
         res = db.query(q_string)
 
         if res.count() > 0:
@@ -58,7 +58,7 @@ def insert_data(db, data, his_date):
             up_data['circulating_supply']  = rec['Circulating Supply'].strip(",")
             query_string = """UPDATE TABLE coin_history SET {} """.format(','.join('{}=%s'.format(k) for k in up_data))
             query_string = query_string % tuple(up_data.values())
-            query_string = query_string + """ WHERE name = "%s" """ % coin
+            query_string = query_string + """ WHERE name = '%s' """ % coin
             print query_string
             db.update(query_string.strip('Low Vol'))
         else:
