@@ -2,13 +2,13 @@ __author__ = "samrohn77@gmail.com"
 
 from bs4 import BeautifulSoup
 import pandas as pd
-#from pymongo import MongoClient
+from pymongo import MongoClient
 import requests
 import json
 import datetime
 import pytz
 import time
-from database import Database
+import database
 
 
 dates = ['20130428', '20130505','20130512', '20130519','20130526', '20130602', '20130609','20130616', '20130623','20130630','20130707','20130714','20130721','20130728',
@@ -41,48 +41,47 @@ def insert_data(db, data, his_date):
         coin = rec["Name"]
 
         #res = db.cryptodata.find({db.cryptodata.name : "/^"+coin+"$/"})
-        query_string = """SELECT name from coin_history where name="%s";"""%coin
-        print query_string
-        res = db.query(query_string)
-        #print dir(res)
-        if len(res) > 0:
+        q_string = """SELECT coin_name from coin_history where coin_name= %s"""%coin
+        res = db.query(query_str)
+
+        if res.count() > 0:
             up_data = {}
             up_data['date'] = his_date
-            up_data['rank'] = rec['#']
+            up_data['rank'] = rec['#'].strip(",")
             up_data['ticker'] = rec['Symbol']
-            up_data['price'] = rec['Price']
-            up_data['7_day_change'] = rec['% 7d']
-            up_data['24_hr_volume'] = rec['Volume (24h)']
-            up_data['24_hr_change'] = rec['% 24h']
-            up_data['market_cap'] = rec['Market Cap']
-            up_data['1_hr_change'] = rec['% 1h']
-            up_data['circulating_suply']  = rec['Circulating Supply']
+            up_data['price'] = rec['Price'].strip(",")
+            up_data['7_day_change'] = rec['% 7d'].strip("%")
+            up_data['24_hr_volume'] = rec['Volume (24h)'].strip(",")
+            up_data['24_hr_change'] = rec['% 24h'].strip("%")
+            up_data['market_cap'] = rec['Market Cap'].strip(",")
+            up_data['1_hr_change'] = rec['% 1h'].strip("%")
+            up_data['circulating_supply']  = rec['Circulating Supply'].strip(",")
             query_string = """UPDATE TABLE coin_history SET {} """.format(','.join('{}=%s'.format(k) for k in up_data))
             query_string = query_string % tuple(up_data.values())
-            query_string = query_string +""" WHERE name = "%s";""" % coin
+            query_string = query_string + " WHERE name = %s " % coin
             print query_string
-            db.update(query_string)
+            db.update(query_string.strip('Low Vol'))
         else:
             #print 'inserting coin, ', coin
-            #print rec
+            print rec
             up_data = {}
             up_data['name'] = coin
             up_data['date'] = his_date
-            up_data['rank'] = rec['#']
+            up_data['rank'] = rec['#'].strip(",")
             up_data['ticker'] = rec['Symbol']
-            up_data['price'] = rec['Price']
-            up_data['7_day_change'] = rec['% 7d']
-            up_data['24_hr_volume'] = rec['Volume (24h)']
-            up_data['24_hr_change'] = rec['% 24h']
-            up_data['market_cap'] = rec['Market Cap']
-            up_data['1_hr_change'] = rec['% 1h']
-            up_data['circulating_suply']  = rec['Circulating Supply']
+            up_data['price'] = rec['Price'].strip(",")
+            up_data['7_day_change'] = rec['% 7d'].strip("%")
+            up_data['24_hr_volume'] = rec['Volume (24h)'].strip("%")
+            up_data['24_hr_change'] = rec['% 24h'].strip("%")
+            up_data['market_cap'] = rec['Market Cap'].strip(",")
+            up_data['1_hr_change'] = rec['% 1h'].strip("%")
+            up_data['circulating_supply']  = rec['Circulating Supply'].strip(",")
             placeholders = ', '.join(['%s'] * len(up_data))
-            columns = ', '.join(up_data.keys())
-            query_string = "INSERT INTO %s ( %s ) VALUES ( %s )" % ("coin_history", columns, placeholders)
-            query_string = query_string % tuple(up_data.values()) + ";"
+            columns = ', '.join(myDict.keys())
+            query_string = "INSERT INTO %s ( %s ) VALUES ( %s )" % (table, columns, placeholders)
+            query_string = query + tuple(up_data.values())
             print query_string
-            print db.insert(query_string)
+            db.insert(query_string.strip('Low Vol')
 
 if __name__ == '__main__':
     #data = get_cmc_data()

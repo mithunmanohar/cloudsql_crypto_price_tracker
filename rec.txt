@@ -47,4 +47,3 @@ market_cap decimal(13,2),
 alter table coin_history ADD 24_volume int(17);
 
 
-
