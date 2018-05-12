@@ -80,7 +80,7 @@ def insert_data(db, data, his_date):
             #print rec
         up_data = {}
         up_data['name'] = coin
-        up_data['date'] = his_date
+        up_data['date'] = "STR_TO_DATE(" + his_date + ", '%d/%m/%Y')"
         up_data['rank'] = rec['#']
         up_data['ticker'] = rec['Symbol']
         up_data['price'] = rec['Price']
@@ -92,7 +92,7 @@ def insert_data(db, data, his_date):
         up_data['circulating_supply']  = rec['Circulating Supply']
         placeholders = ', '.join(['%s'] * len(up_data))
         columns = ', '.join(up_data.keys())
-        query_string = "INSERT INTO %s ( %s ) VALUES ( %s )" % ('coin_history', columns, placeholders)
+        query_string = "INSERT INTO %s ( %s ) VALUES ( '%s' )" % ('coin_history', columns, placeholders)
         query_string = query_string % tuple(up_data.values())
         print query_string
         db.insert(query_string.strip('Low Vol'))
