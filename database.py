@@ -9,6 +9,7 @@ import datetime
 #import pytz
 import time
 import settings
+import traceback
 
 import MySQLdb
 
@@ -23,21 +24,22 @@ class Database:
     	self.db = settings.database
         self.connection = MySQLdb.connect(self.host, self.user_name,
         				  self.password, self.db)
-        print self.connection, dir(self.connection)
         self.cursor = self.connection.cursor()
 
     def insert(self, query):
         try:
             self.cursor.execute(query)
             self.connection.commit()
-        except:
+        except Exception as e:
+            print traceback.print_exc()
             self.connection.rollback()
 
     def update(self, query):
         try:
             self.cursor.execute(query)
             self.connection.commit()
-        except:
+        except Exception as e:
+            print traceback.print_exc()
             self.connection.rollback()
 
 
