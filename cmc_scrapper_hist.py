@@ -45,7 +45,7 @@ def get_cmc_data(url):
 
 def insert_data(db, data, his_date):
     now = datetime.datetime.now()
-    his_date = datetime.datetime.strptime(his_date, "%Y%m%d").strftime("%d/%m/%Y")
+    his_date = datetime.datetime.strptime('"'+his_date+'"', "%Y%m%d").strftime("%d/%m/%Y")
     for rec in data:
         rec = validate_rec(rec)
         #if rec["Symbol"] != "BTC":
