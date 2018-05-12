@@ -31,8 +31,8 @@ class Database:
             self.cursor.execute(query)
             self.connection.commit()
         except Exception as e:
-            print traceback.print_exc()
             print query
+            print traceback.print_exc()
             self.connection.rollback()
 
     def update(self, query):
@@ -40,8 +40,8 @@ class Database:
             self.cursor.execute(query)
             self.connection.commit()
         except Exception as e:
-            print traceback.print_exc()
             print query
+            print traceback.print_exc()
             self.connection.rollback()
 
 
