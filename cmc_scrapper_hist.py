@@ -41,7 +41,7 @@ def get_cmc_data(url):
 
 def insert_data(db, data, his_date):
     now = datetime.datetime.now()
-    his_date = datetime.datetime.strptime(his_date, "%d/%m/%Y").strftime("%d/%m/%Y")
+    his_date = datetime.datetime.strptime(his_date, "%Y%m%d").strftime("%d/%m/%Y")
     for rec in data:
         rec = validate_rec(rec)
         #if rec["Symbol"] != "BTC":
@@ -62,7 +62,7 @@ def insert_data(db, data, his_date):
         up_data['24_hr_volume'] = rec['Volume (24h)']
         up_data['24_hr_change'] = rec['% 24h']
         up_data['market_cap'] = rec['Market Cap']
-        up_data['1_hr_change'] = rec['% 1h']
+        up_data['1_hr_change'] = rec['% 1h'].strip("%")
         up_data['circulating_supply']  = rec['Circulating Supply']
         query_string = """UPDATE TABLE coin_history SET {} """.format(','.join('{}=%s'.format(k) for k in up_data))
         query_string = query_string % tuple(up_data.values())
