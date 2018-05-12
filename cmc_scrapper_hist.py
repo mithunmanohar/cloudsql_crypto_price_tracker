@@ -24,11 +24,8 @@ def validate_rec(rec):
         print type(value)
         if type(value) is unicode :
             rec[each] = value.strip().strip(',').strip('%').strip('$').strip('*').replace('Low Vol', '0')
-
-
-            print '>>>', rec[each]
-
         else:
+            print '>>>', rec[each]
             pass
 
     return rec
@@ -79,10 +76,10 @@ def insert_data(db, data, his_date):
             ##print 'inserting coin, ', coin
             #print rec
         up_data = {}
-        up_data['name'] = coin
+        up_data['name'] = '"' + coin + '"'
         up_data['date'] = "STR_TO_DATE(" + his_date + ", '%d/%m/%Y')"
         up_data['rank'] = rec['#']
-        up_data['ticker'] = rec['Symbol']
+        up_data['ticker'] = '"' + rec['Symbol'] + '"'
         up_data['price'] = rec['Price']
         up_data['7_day_change'] = rec['% 7d']
         up_data['24_hr_volume'] = rec['Volume (24h)']
@@ -90,7 +87,7 @@ def insert_data(db, data, his_date):
         up_data['market_cap'] = rec['Market Cap']
         up_data['1_hr_change'] = rec['% 1h']
         up_data['circulating_supply']  = rec['Circulating Supply']
-        placeholders = ', '.join(["'%s'"] * len(up_data))
+        placeholders = ', '.join(['%s'] * len(up_data))
         columns = ', '.join(up_data.keys())
         query_string = "INSERT INTO %s ( %s ) VALUES ( %s )" % ('coin_history', columns, placeholders)
         query_string = query_string % tuple(up_data.values())
