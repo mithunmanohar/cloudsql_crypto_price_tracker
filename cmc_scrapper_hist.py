@@ -21,9 +21,10 @@ dates = ['20130428', '20130505','20130512', '20130519','20130526', '20130602', '
 def validate_rec(rec):
     for each in rec:
         value = rec[each]
-        print type(value)
+        #print type(value)
         if type(value) is unicode :
             rec[each] = value.strip().strip(',').strip('%').strip('$').strip('*').replace('Low Vol', '0')
+            print '--' rec[each]
         else:
             print '>>>', rec[each]
             pass
