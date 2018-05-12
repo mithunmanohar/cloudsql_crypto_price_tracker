@@ -21,6 +21,7 @@ dates = ['20130428', '20130505','20130512', '20130519','20130526', '20130602', '
 def validate_rec(rec):
     for each in rec:
         value = rec[each]
+        print type(value)
         if type(value) is str :
             rec[each] = value.strip().strip(',').strip('%').strip('').strip('*')
             print value
