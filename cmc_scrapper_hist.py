@@ -22,7 +22,8 @@ def validate_rec(rec):
     for each in rec:
         value = rec[each]
         if type(value) is str :
-            rec[each] = rec[each].strip().strip(',').strip('%').strip('').strip('*')
+            rec[each] = value.strip().strip(',').strip('%').strip('').strip('*')
+            print value
         else:
             pass
     print '---> ', rec
