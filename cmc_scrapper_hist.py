@@ -25,6 +25,7 @@ def validate_rec(rec):
             rec[each] = rec[each].strip().strip(',').strip('%').strip('').strip('*')
         else:
             pass
+    print '---> ', rec
     return rec
 def get_db():
     db = Database()                                                             # connect to your google cloud-sql database
