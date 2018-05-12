@@ -54,7 +54,7 @@ def insert_data(db, data, his_date):
 
         #if len(res) > 0:
         up_data = {}
-        up_data['date'] = "STR_TO_DATE(%s, '%d/%m/%Y')" % his_date
+        up_data['date'] = "STR_TO_DATE(%s, '''%d/%m/%Y''')" % his_date
         up_data['rank'] = rec['#']
         up_data['ticker'] = rec['Symbol']
         up_data['price'] = rec['Price']
