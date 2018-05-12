@@ -32,6 +32,7 @@ class Database:
             self.connection.commit()
         except Exception as e:
             print traceback.print_exc()
+            print query
             self.connection.rollback()
 
     def update(self, query):
@@ -40,13 +41,13 @@ class Database:
             self.connection.commit()
         except Exception as e:
             print traceback.print_exc()
+            print query
             self.connection.rollback()
 
 
     def query(self, query):
         cursor = self.connection.cursor( MySQLdb.cursors.DictCursor )
         cursor.execute(query)
-
         return cursor.fetchall()
 
     def __del__(self):
