@@ -23,7 +23,7 @@ def validate_rec(rec):
         value = rec[each]
         print type(value)
         if type(value) is unicode :
-            rec[each] = value.strip().strip(',').strip('%').strip('$').strip('*').strip('Low Vol', '0')
+            rec[each] = value.strip().strip(',').strip('%').strip('$').strip('*').replace('Low Vol', '0')
 
 
             print '>>>', rec[each]
