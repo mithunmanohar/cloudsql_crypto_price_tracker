@@ -77,62 +77,70 @@ def insert_data(db, data, his_date):
     his_date = datetime.datetime.strptime(his_date, "%Y%m%d").strftime("%d/%m/%Y")
     his_date = "'" + his_date + "'"
     for rec in data:
-        print rec
-        rec = validate_rec(rec)
-        coin = rec["Name"]
-        q_string = """SELECT name from coin_history where name= '%s' and date= '%s'"""%(coin, dt)
-        res = db.query(q_string)
-        if len(res)>=1:
-            print 'founf'
-            continue
-        ##if len(res) > 0:
-        #up_data = {}
-        #up_data['date'] = "STR_TO_DATE(" + his_date + ", '%d/%m/%Y')"
-        #up_data['rank'] = rec['#']
-        #up_data['ticker'] = rec['Symbol']
-        #up_data['price'] = rec['Price']
-        #up_data['7_day_change'] = rec['% 7d']
-        #up_data['24_hr_volume'] = rec['Volume (24h)']
-        #up_data['24_hr_change'] = rec['% 24h']
-        #up_data['market_cap'] = rec['Market Cap']
-        #up_data['1_hr_change'] = rec['% 1h'].strip("%")
-        #up_data['circulating_supply']  = rec['Circulating Supply']
-        #query_string = """UPDATE TABLE coin_history SET {} """.format(','.join('{}=%s'.format(k) for k in up_data))
-        #query_string = query_string % tuple(up_data.values())
-        #query_string = query_string + """ WHERE name = '%s' """ % coin
-        #print query_string
-        #db.update(query_string.strip('Low Vol'))
-        #else:
-            ##print 'inserting coin, ', coin
-            #print rec
-        up_data = {}
-        up_data['name'] = '"' + coin + '"'
-        up_data['date'] = "STR_TO_DATE(" + his_date + ", '%d/%m/%Y')"
-        up_data['rank'] = rec['#']
-        up_data['ticker'] = '"' + rec['Symbol'] + '"'
-        up_data['price'] = rec['Price']
-        up_data['7_day_change'] = rec['% 7d']
-        up_data['24_hr_volume'] = rec['Volume (24h)']
-        up_data['24_hr_change'] = rec['% 24h']
-        up_data['market_cap'] = rec['Market Cap']
-        up_data['1_hr_change'] = rec['% 1h']
-        up_data['circulating_supply']  = rec['Circulating Supply']
-        placeholders = ', '.join(['%s'] * len(up_data))
-        columns = ', '.join(up_data.keys())
-        query_string = "INSERT INTO %s ( %s ) VALUES ( %s )" % ('coin_history', columns, placeholders)
-        query_string = query_string % tuple(up_data.values())
         try:
-            db.insert(query_string)
+            print rec
+            rec = validate_rec(rec)
+            coin = rec["Name"]
+            q_string = """SELECT name from coin_history where name= '%s' and date= '%s'"""%(coin, dt)
+            res = db.query(q_string)
+            if len(res)>=1:
+                print 'founf'
+                continue
+            ##if len(res) > 0:
+            #up_data = {}
+            #up_data['date'] = "STR_TO_DATE(" + his_date + ", '%d/%m/%Y')"
+            #up_data['rank'] = rec['#']
+            #up_data['ticker'] = rec['Symbol']
+            #up_data['price'] = rec['Price']
+            #up_data['7_day_change'] = rec['% 7d']
+            #up_data['24_hr_volume'] = rec['Volume (24h)']
+            #up_data['24_hr_change'] = rec['% 24h']
+            #up_data['market_cap'] = rec['Market Cap']
+            #up_data['1_hr_change'] = rec['% 1h'].strip("%")
+            #up_data['circulating_supply']  = rec['Circulating Supply']
+            #query_string = """UPDATE TABLE coin_history SET {} """.format(','.join('{}=%s'.format(k) for k in up_data))
+            #query_string = query_string % tuple(up_data.values())
+            #query_string = query_string + """ WHERE name = '%s' """ % coin
+            #print query_string
+            #db.update(query_string.strip('Low Vol'))
+            #else:
+                ##print 'inserting coin, ', coin
+                #print rec
+            up_data = {}
+            up_data['name'] = '"' + coin + '"'
+            up_data['date'] = "STR_TO_DATE(" + his_date + ", '%d/%m/%Y')"
+            up_data['rank'] = rec['#']
+            up_data['ticker'] = '"' + rec['Symbol'] + '"'
+            up_data['price'] = rec['Price']
+            up_data['7_day_change'] = rec['% 7d']
+            up_data['24_hr_volume'] = rec['Volume (24h)']
+            up_data['24_hr_change'] = rec['% 24h']
+            up_data['market_cap'] = rec['Market Cap']
+            up_data['1_hr_change'] = rec['% 1h']
+            up_data['circulating_supply']  = rec['Circulating Supply']
+            placeholders = ', '.join(['%s'] * len(up_data))
+            columns = ', '.join(up_data.keys())
+            query_string = "INSERT INTO %s ( %s ) VALUES ( %s )" % ('coin_history', columns, placeholders)
+            query_string = query_string % tuple(up_data.values())
+            try:
+                db.insert(query_string)
+            except:
+                print 'exception in ', query_string
         except:
-            print 'exception in ', query_string
+            print 'caught exception once more'
+            pass
 
 if __name__ == '__main__':
     db = get_db()
     count = 0
     for each in dates:
-        count = count + 1
-        url = "https://coinmarketcap.com/historical/" + each
-        data = get_cmc_data(url)
-        insert_data(db, data, each)
-        #if count == 4:
+        try:
+            if not db:
+                db = get_db()
+            url = "https://coinmarketcap.com/historical/" + each
+            data = get_cmc_data(url)
+            insert_data(db, data, each)
+        except:
+            pass
+            #if count == 4:
         #    break
