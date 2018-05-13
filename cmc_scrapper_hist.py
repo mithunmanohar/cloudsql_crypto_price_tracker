@@ -129,5 +129,5 @@ if __name__ == '__main__':
         url = "https://coinmarketcap.com/historical/" + each
         data = get_cmc_data(url)
         insert_data(db, data, each)
-        if count == 4:
-            break
+        #if count == 4:
+        #    break
