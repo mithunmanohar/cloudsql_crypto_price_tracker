@@ -90,7 +90,7 @@ def start_report():
             for each in dates:
                 m_data[c] = []
 
-                q_string = """SELECT  rank  from coin_history where name='%s' and date='%s'"""%(each, c)
+                q_string = """SELECT  distinct(rank)  from coin_history where name='%s' and date='%s'"""%(each, c)
                 res = db.query(query_string)
                 if len(res) > 0:
                     m_data[c].append(res['rank'])
