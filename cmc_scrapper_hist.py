@@ -83,6 +83,7 @@ def insert_data(db, data, his_date):
         q_string = """SELECT name from coin_history where name= '%s' and date= '%s'"""%(coin, dt)
         res = db.query(q_string)
         if len(res)>=1:
+            print 'founf'
             continue
         ##if len(res) > 0:
         #up_data = {}
