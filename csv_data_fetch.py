@@ -68,22 +68,34 @@ def start_report():
             if count == 200:
                 break
     #print coins
-    for dt in dates:
-        dt = datetime.datetime.strptime(dt, "%Y%m%d").strftime('%Y-%m-%d')
-        q_string = """SELECT date, name, rank  from coin_history where date='%s'"""%(dt)
-        res = db.query(q_string)
-        date_rank = [dt]
-        if len(res) > 1:
-            print res
-            for coin in coins:
-                for data in res:
-                    if coin in data['name']:
-                        date_rank.append(data['rank'])
-                    else:
-                        date_rank.append('na')
-        else:
-            pass
-        print date_rank
+    #for dt in dates:
+        #dt = datetime.datetime.strptime(dt, "%Y%m%d").strftime('%Y-%m-%d')
+        #q_string = """SELECT date, name, rank  from coin_history where date='%s'"""%(dt)
+        #res = db.query(q_string)
+        #date_rank = [dt]
+        #if len(res) > 1:
+            #print res
+            #for coin in coins:
+                #for data in res:
+                    #if coin in data['name']:
+                        #date_rank.append(data['rank'])
+                    #else:
+                        #date_rank.append('na')
+        #else:
+            #pass
+        dates = [datetime.datetime.strptime(each, "%Y%m%d").strftime('%Y-%m-%d') for each in dates]
+
+        for each in dates:
+            q_string = """SELECT date, name, rank  from coin_history where date='%s'"""%(each)
+            date_rank = [each]
+            res = db.query(q_string)
+            for item in res:
+                co = item['name']
+                for coin in coins:
+                    if co == coin:
+                        date_rank.append(item['rank']')
+            print date_rank
+
 
 if __name__ == '__main__':
     start_report()
