@@ -74,13 +74,16 @@ def get_cmc_data(url):
 def insert_data(db, data, his_date):
     now = datetime.datetime.now()
     his_date = datetime.datetime.strptime(his_date, "%Y%m%d").strftime("%d/%m/%Y")
+    dt = datetime.datetime.strptime(his_date, "%Y%m%d").strftime("%Y-%m-%d")
     his_date = "'" + his_date + "'"
     for rec in data:
+        print rec
         rec = validate_rec(rec)
         coin = rec["Name"]
-        q_string = """SELECT name from coin_history where name= '%s'"""%coin
+        q_string = """SELECT name from coin_history where name= '%s' and date= '%s'"""%(coin, dt)
         res = db.query(q_string)
-
+        if len(res)>=1:
+            continue
         ##if len(res) > 0:
         #up_data = {}
         #up_data['date'] = "STR_TO_DATE(" + his_date + ", '%d/%m/%Y')"
