@@ -57,22 +57,33 @@ def get_db():
 
 def start_report():
     db = get_db()
-    q_string = """SELECT distict(name) from coin_history where date=%s"""%(dt)
+    q_string = """SELECT distinct(name) from coin_history where date='2018-05-06'"""
     res = db.query(q_string)
     coins = []
     if len(res)>=1:
         count = 0
         for each in res:
             count = count + 1
-            coins.append(each)
+            coins.append(each['name'])
             if count == 200:
                 break
-    print coins
-    #for rec in dates:
-        #q_string = """SELECT * from coin_historywhere date=%s"""%(dt)
-        #res = db.query(q_string)
-        #for each in res:
-            #print each
+    #print coins
+    for dt in dates:
+        dt = datetime.datetime.strptime(dt, "%Y%m%d").strftime('%Y-%m-%d')
+        q_string = """SELECT date, name, rank  from coin_history where date='%s'"""%(dt)
+        res = db.query(q_string)
+        date_rank = [dt]
+        if len(res) > 1:
+            print res
+            for coin in coins:
+                for data in res:
+                    if coin in data['name']:
+                        date_rank.append(data['rank'])
+                    else:
+                        date_rank.append('na')
+        else:
+            pass
+        print date_rank
 
 if __name__ == '__main__':
     start_report()
