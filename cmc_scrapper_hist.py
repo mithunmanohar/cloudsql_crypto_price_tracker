@@ -79,6 +79,7 @@ def insert_data(db, data, his_date):
     for rec in data:
         print rec
         rec = validate_rec(rec)
+        #print rec
         coin = rec["Name"]
         q_string = """SELECT name from coin_history where name= '%s' and date= '%s'"""%(coin, dt)
         res = db.query(q_string)
@@ -120,6 +121,7 @@ def insert_data(db, data, his_date):
         columns = ', '.join(up_data.keys())
         query_string = "INSERT INTO %s ( %s ) VALUES ( %s )" % ('coin_history', columns, placeholders)
         query_string = query_string % tuple(up_data.values())
+        #print query_string
         db.insert(query_string.strip('Low Vol'))
 
 if __name__ == '__main__':
@@ -130,5 +132,5 @@ if __name__ == '__main__':
         url = "https://coinmarketcap.com/historical/" + each
         data = get_cmc_data(url)
         insert_data(db, data, each)
-        if count == 4:
-            break
+        #if count == 4:
+        #    break
