@@ -77,6 +77,7 @@ def insert_data(db, data, his_date):
     his_date = "'" + his_date + "'"
     for rec in data:
         rec = validate_rec(rec)
+        #print rec
         coin = rec["Name"]
         q_string = """SELECT name from coin_history where name= '%s'"""%coin
         res = db.query(q_string)
@@ -117,6 +118,7 @@ def insert_data(db, data, his_date):
         columns = ', '.join(up_data.keys())
         query_string = "INSERT INTO %s ( %s ) VALUES ( %s )" % ('coin_history', columns, placeholders)
         query_string = query_string % tuple(up_data.values())
+        #print query_string
         db.insert(query_string.strip('Low Vol'))
 
 if __name__ == '__main__':
