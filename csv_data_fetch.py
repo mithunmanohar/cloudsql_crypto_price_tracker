@@ -84,18 +84,19 @@ def start_report():
         #else:
             #pass
         dates = [datetime.datetime.strptime(each, "%Y%m%d").strftime('%Y-%m-%d') for each in dates]
+        m_data ={}
+        m_data['dates'] = dates
+        for c in coins:
+            for each in dates:
+                m_data[c] = []
 
-        for each in dates:
-            q_string = """SELECT date, name, rank  from coin_history where date='%s'"""%(each)
-            date_rank = [each]
-            res = db.query(q_string)
-            for item in res:
-                co = item['name']
-                for coin in coins:
-                    if co == coin:
-                        date_rank.append(item['rank']')
-            print date_rank
-
+                q_string = """SELECT  rank  from coin_history where name='%s' and date='%s'"""%(each, c)
+                res = db.query(query_string)
+                if len(res) > 0:
+                    m_data[c].append(res['rank'])
+                else:
+                    m_data[c].append('0')
+            print m_data[c]
 
 if __name__ == '__main__':
     start_report()
