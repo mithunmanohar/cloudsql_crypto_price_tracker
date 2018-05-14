@@ -89,19 +89,27 @@ def start_report():
         m_data['dates'] = dates
         for c in coins:
             m_data[c] = []
-            for each in dates:
-                #m_data[c] = []
+            try:
+                for each in dates:
+                    #m_data[c] = []
 
-                q_string = """SELECT  distinct(rank)  from coin_history where name='%s' and date='%s'"""%(c,each)
-                res = db.query(q_string)
-                #print q_string
-                #print res
-                if len(res) > 0:
-                    m_data[c].append(res[0]['rank'])
-                else:
-                    m_data[c].append('0')
-        
+                    q_string = """SELECT  distinct(rank)  from coin_history where name='%s' and date='%s'"""%(c,each)
+                    res = db.query(q_string)
+                    #print q_string
+                    #print res
+                    if len(res) > 0:
+                        m_data[c].append(res[0]['rank'])
+                    else:
+                        m_data[c].append('0')
+             except:
+                 pass
 
+        with open('report.csv') as fl:
+            try:
+                for each in zip(*m_data.values()):
+                    fl.write(','.join(each)
+            except:
+                pass
 
 if __name__ == '__main__':
     start_report()
