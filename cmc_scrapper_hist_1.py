@@ -28,8 +28,8 @@ dates = ['20130428', '20130505','20130512', '20130519','20130526', '20130602',
          '20151122','20151129','20151206','20151213', '20151227','20160103',
          '20160110','20160117','20160124','20160131','20160207','20160214',
          '20160221','20160228','20160306','20160313','20160320','20160327',
-         '20160403','20160417','20160424','20160501','20160508', '20160515']
-dates=[ '20160522','20160529','20160605','20160612','20160619','20160626',
+         '20160403','20160417','20160424','20160501','20160508', '20160515',
+'20160522','20160529','20160605','20160612','20160619','20160626',
          '20160710','20160717','20160724','20160731','20160814','20160821',
          '20160828','20160904','20160911','20160918','20160925','20160703',
          '20160807','20161009','20161016','20161023', '20161030','20161106',
@@ -81,7 +81,7 @@ def insert_data(db, data, his_date):
             print rec
             rec = validate_rec(rec)
             coin = rec["Name"]
-            q_string = """SELECT name from coin_history where name= '%s' and date= '%s'"""%(coin, dt)
+            q_string = """SELECT name from coin_data where name= '%s' and date= '%s'"""%(coin, dt)
             res = db.query(q_string)
             if len(res)>=1:
                 print 8
@@ -89,7 +89,7 @@ def insert_data(db, data, his_date):
             ##if len(res) > 0:
             #up_data = {}
             #up_data['date'] = "STR_TO_DATE(" + his_date + ", '%d/%m/%Y')"
-            #up_data['rank'] = rec['#']
+            #up_data['rank'] = rec['#']  
             #up_data['ticker'] = rec['Symbol']
             #up_data['price'] = rec['Price']
             #up_data['7_day_change'] = rec['% 7d']
@@ -120,7 +120,7 @@ def insert_data(db, data, his_date):
             up_data['circulating_supply']  = rec['Circulating Supply']
             placeholders = ', '.join(['%s'] * len(up_data))
             columns = ', '.join(up_data.keys())
-            query_string = "INSERT INTO %s ( %s ) VALUES ( %s )" % ('coin_history', columns, placeholders)
+            query_string = "INSERT INTO %s ( %s ) VALUES ( %s )" % ('coin_data', columns, placeholders)
             query_string = query_string % tuple(up_data.values())
             try:
                 db.insert(query_string)

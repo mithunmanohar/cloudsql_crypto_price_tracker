@@ -101,14 +101,17 @@ def start_report():
                         m_data[c].append(res[0]['rank'])
                     else:
                         m_data[c].append('0')
-             except:
+                print m_data[c]
+            except Exception as e:
+                 print 'exeption q', e
                  pass
 
-        with open('report.csv') as fl:
+        with open('report.csv','w') as fl:
             try:
                 for each in zip(*m_data.values()):
-                    fl.write(','.join(each)
-            except:
+                    fl.write(','.join(each))
+            except Exception as e:
+                print 'exception 2', e
                 pass
 
 if __name__ == '__main__':
