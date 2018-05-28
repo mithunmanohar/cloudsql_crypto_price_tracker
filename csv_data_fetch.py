@@ -101,13 +101,13 @@ def start_report():
                         m_data[c].append(res[0]['rank'])
                     else:
                         m_data[c].append('0')
-             except:
-                 pass
+            except:
+                pass
 
-        with open('report.csv') as fl:
+        with open('report.csv', 'w') as fl:
             try:
                 for each in zip(*m_data.values()):
-                    fl.write(','.join(each)
+                    fl.write(','.join(each))
             except:
                 pass
 
