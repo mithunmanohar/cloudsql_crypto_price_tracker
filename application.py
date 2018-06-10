@@ -21,12 +21,13 @@ def get_all_coins():
     if auth_key != "fdsrtw435s6af8dsd9sa":
         return "{ACCESS DENIED:Authentication Failed}"
     db = get_db()
-    query = "select distinct (name) from coin_history"
+    query = "select distinct(name) , rank from coin_history where date=(select date from coin_history order by date desc limit 1)"
     data = db.query(query)
     ret_data = []
 
     for each in data.fetchall():
-        ret_data.append(each['name'])
+        c_data = {each['name'] : each['rank']}
+        ret_data.append(c_data)
     return json.dumps(ret_data)
 
 
