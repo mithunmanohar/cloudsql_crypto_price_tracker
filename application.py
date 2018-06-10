@@ -20,7 +20,6 @@ def get_all_coins():
     db = get_db()
     if auth_key != "fdsrtw435s6af8dsd9sa":
         return "{ACCESS DENIED:Authentication Failed}"
-    coin = '"' + coin + '"'
     db = get_db()
     query = "select distinct (name) from coin_history"
     data = db.query(query)
