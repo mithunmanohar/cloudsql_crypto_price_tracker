@@ -36,7 +36,7 @@ def get_data():
     ret_data = []
 
     for each in data.fetchall():
-        day_data = {each['date'] : each['rank']}
+        day_data = {str(each['date']) : str(each['rank'])}
         ret_data.append(day_data)
     return json.dumps(ret_data)
 #    for hist_data in data:
