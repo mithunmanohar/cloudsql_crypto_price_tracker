@@ -52,8 +52,8 @@ def get_all_data():
     ret_data = []
 
     for each in data.fetchall():
-        #day_data = {str(each['date']) : str(each['rank'])}
-        day_data = str(each['date'])
+        day_data = {str(each['date']) : str(each['rank'])}
+        #day_data = str(each['date'])
         ret_data.append(day_data)
     return json.dumps(ret_data)
 
