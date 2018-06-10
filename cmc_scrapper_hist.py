@@ -46,7 +46,7 @@ dates = ['20130428', '20130505','20130512', '20130519','20130526', '20130602',
          '20180325','20180401', '20180408', '20180415','20180422', '20180429',
          '20180506']
 
-dates = ['20180513', '20180520', '20180527', '20180603']
+dates = [ '20180520', '20180527', '20180603']
 
 def validate_rec(rec):
     for each in rec:
@@ -54,7 +54,7 @@ def validate_rec(rec):
         if type(value) is unicode :
             rec[each] = value.strip().replace(",", "").replace('%', "")\
             .replace('$', "").replace('*', "").replace('Low Vol', '0')\
-            .replace('?', '0')
+            .replace('?', '0').replace("'","")
         else:
             pass
     return rec
@@ -80,13 +80,13 @@ def insert_data(db, data, his_date):
     for rec in data:
         print rec
         rec = validate_rec(rec)
-        coin = rec["Name"]
-        q_string = """SELECT name from coin_history where name= '%s' and date= '%s'"""%(coin, dt)
-        res = db.query(q_string)
+        coin = rec["Name"].replace("'", "")
+        q_string = """SELECT name from coin_history where name= '%s' and date= '%s'"""%(str(coin), dt)
+        res = db.query(q_string).fetchall()
         if len(res)>=1:
             continue
         up_data = {}
-        up_data['name'] = '"' + coin + '"'
+        up_data['name'] = '"' + str(coin) + '"'
         up_data['date'] = "STR_TO_DATE(" + his_date + ", '%d/%m/%Y')"
         up_data['rank'] = rec['#']
         up_data['ticker'] = '"' + rec['Symbol'] + '"'
