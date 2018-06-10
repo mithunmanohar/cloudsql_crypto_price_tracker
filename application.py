@@ -1,11 +1,5 @@
 import json
-import requests
-#import pymongo
-#import pandas as pd
 from flask import Flask
-from flask import request
-from bs4 import BeautifulSoup
-#from pymongo import MongoClient
 from database import Database
 app = Flask(__name__)
 
@@ -18,23 +12,20 @@ def get_db():
 def status():
     return json.dumps({"status":"Success"})
 
-@app.route('/get_all_dates')
-def get_all_dates():
-    coin = request.args.get('coin_name')
-    date = request.args.get('date')
+@app.route('/get_all_coins')
+def get_all_coins():
     auth_key = request.args.get('auth_key')
     db = get_db()
     if auth_key != "fdsrtw435s6af8dsd9sa":
         return "{ACCESS DENIED:Authentication Failed}"
     coin = '"' + coin + '"'
     db = get_db()
-    query = "select distinct (date), rank from coin_history where name = %s"%(coin)
+    query = "select distinct (name) from coin_history"
     data = db.query(query)
     ret_data = []
 
     for each in data.fetchall():
-        day_data = {str(each['date']) : str(each['rank'])}
-        ret_data.append(day_data)
+        ret_data.append(each['name'])
     return json.dumps(ret_data)
 
 
