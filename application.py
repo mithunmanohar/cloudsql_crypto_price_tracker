@@ -21,6 +21,7 @@ def status():
 @app.route('/get_all_data')
 def get_data():
     coin = request.args.get('coin_name')
+    print 'coin ----------', coin
     date = request.args.get('date')
     auth_key = request.args.get('auth_key')
     db = get_db()
@@ -28,7 +29,7 @@ def get_data():
         return "{ACCESS DENIED:Authentication Failed}"
 
     db = get_db()
-    query = """select * from coin_history where name = "%s"""""%str(coin)
+    query = "select * from coin_history where name = %s"%(coin)
     data = db.query(query)
     print data
     ret_data = []
