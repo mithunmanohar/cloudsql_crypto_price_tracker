@@ -27,7 +27,7 @@ def get_data():
     db = get_db()
     if auth_key != "fdsrtw435s6af8dsd9sa":
         return "{ACCESS DENIED:Authentication Failed}"
-
+    coin = '"' + coin + '"'
     db = get_db()
     query = "select * from coin_history where name = %s"%(coin)
     print '+++++', query
