@@ -28,7 +28,8 @@ def get_data():
         return "{ACCESS DENIED:Authentication Failed}"
 
     db = get_db()
-    data = db.query("select * from coin_history where name = %s")%str(coin)
+    query = "select * from coin_history where name = %s"%str(coin)
+    data = db.query(query)
     print data
     ret_data = []
 
