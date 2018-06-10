@@ -47,12 +47,16 @@ def get_all_data():
         return "{ACCESS DENIED:Authentication Failed}"
     coin = '"' + coin + '"'
     db = get_db()
-    query = "select distinct (date), rank from coin_history where name = %s order by date"%(coin)
+    query = "select distinct (date),rank, price, market_cap, 24_hr_volume, 24_hr_change, 7_day_change, circulating_supply from coin_history where name = %s order by date"%(coin)
+
     data = db.query(query)
     ret_data = []
 
     for each in data.fetchall():
-        day_data = {str(each['date']) : str(each['rank'])}
+        day_data = {'date' : str(each['date']), 'rank':str(each['rank']),
+        'price':str(each['price']), '24_hr_volume': str(each['24_hr_volume']),
+        '24_hr_change': str(each['24_hr_change']),'7_day_change': str(each['7_day_change']),
+            'circulating_supply': str(each['circulating_supply'])}
         #day_data = str(each['date'])
         ret_data.append(day_data)
     return json.dumps(ret_data)
