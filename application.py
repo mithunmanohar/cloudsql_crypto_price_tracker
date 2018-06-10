@@ -26,11 +26,10 @@ def get_data():
     db = get_db()
     if auth_key != "fdsrtw435s6af8dsd9sa":
         return "{ACCESS DENIED:Authentication Failed}"
-    if coin:
-        coin = coin
 
     db = get_db()
-    data = db.query("select * from coin_history where name = %s")%coin
+    data = db.query("select * from coin_history where name = %s")%str(coin)
+    print data
     ret_data = []
 
     for each in data.fetchall():
