@@ -29,8 +29,6 @@ def get_data():
     if coin:
         coin = coin
 
-    else:
-        data = db.cryptodata.find({})
     db = get_db()
     data = db.query("select * from coin_history where name = %s")%coin
     ret_data = []
