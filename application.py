@@ -56,7 +56,7 @@ def get_all_data():
         day_data = {'date' : str(each['date']), 'rank':str(each['rank']),
         'price':str(each['price']), '24_hr_volume': str(each['24_hr_volume']),
         '24_hr_change': str(each['24_hr_change']),'7_day_change': str(each['7_day_change']),
-            'circulating_supply': str(each['circulating_supply'])}
+            'circulating_supply': str(each['circulating_supply'], 'market_cap': str(each['market_cap'])}
         #day_data = str(each['date'])
         ret_data.append(day_data)
     return json.dumps(ret_data)
