@@ -30,6 +30,7 @@ def get_data():
 
     db = get_db()
     query = "select * from coin_history where name = %s"%(coin)
+    print '+++++', query
     data = db.query(query)
     print data
     ret_data = []
