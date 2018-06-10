@@ -41,6 +41,7 @@ def get_all_dates():
 @app.route('/get_all_ranks')
 def get_all_data():
     auth_key = request.args.get('auth_key')
+    coin = request.args.get('coin_name')
     db = get_db()
     if auth_key != "fdsrtw435s6af8dsd9sa":
         return "{ACCESS DENIED:Authentication Failed}"
@@ -52,7 +53,7 @@ def get_all_data():
 
     for each in data.fetchall():
         #day_data = {str(each['date']) : str(each['rank'])}
-        ret_data.append(str(each['date']))
+        ret_data.append(day_data)
     return json.dumps(ret_data)
 
 if __name__ == '__main__':
