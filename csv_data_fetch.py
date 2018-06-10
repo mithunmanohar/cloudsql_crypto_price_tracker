@@ -101,6 +101,7 @@ def start_report():
                         m_data[c].append(res[0]['rank'])
                     else:
                         m_data[c].append('0')
+<<<<<<< HEAD
                 print m_data[c]
             except Exception as e:
                  print 'exeption q', e
@@ -112,6 +113,16 @@ def start_report():
                     fl.write(','.join(each))
             except Exception as e:
                 print 'exception 2', e
+=======
+            except:
+                pass
+
+        with open('report.csv', 'w') as fl:
+            try:
+                for each in zip(*m_data.values()):
+                    fl.write(','.join(each))
+            except:
+>>>>>>> abc1f32a6d9e5b1eb95bc6d74c806be89f5e84b6
                 pass
 
 if __name__ == '__main__':

@@ -48,7 +48,7 @@ class Database:
     def query(self, query):
         cursor = self.connection.cursor( MySQLdb.cursors.DictCursor )
         cursor.execute(query)
-        return cursor.fetchall()
+        return cursor
 
     def __del__(self):
         self.connection.close()
