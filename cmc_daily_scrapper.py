@@ -30,32 +30,32 @@ def get_cmc_data():
     return data
 
 def update_db(db, rec):
-    query_str = """SELECT std_name from currencies where std_name = %s""" % rec['Name']
-    data = db.query(query_str)
+    #query_str = """SELECT std_name from currencies where std_name = %s""" % rec['Name']
+    #data = db.query(query_str)
     #for each in data:
     #	print each
     #	break
     coin = rec['Name']
-
+    now = datetime.datetime.now()
     date_today = now.strftime("%Y-%m-%d")
     up_data = {}
-    up_data['name'] = '"' + coin + '"'
+    up_data['name'] = '"' + str(coin) + '"'
     up_data['date'] = "STR_TO_DATE(" + date_today + ", '%d/%m/%Y')"
     up_data['rank'] = rec['#']
     up_data['ticker'] = '"' + rec['Symbol'] + '"'
-    up_data['price'] = rec['Price']
-    up_data['7_day_change'] = rec['% 7d']
-    up_data['24_hr_volume'] = rec['Volume (24h)']
-    up_data['24_hr_change'] = rec['% 24h']
-    up_data['market_cap'] = rec['Market Cap']
-    up_data['1_hr_change'] = rec['% 1h']
-    up_data['circulating_supply']  = rec['Circulating Supply']
+    up_data['price'] = str(rec['Price'])
+    up_data['7_day_change'] = str(rec['% 7d'])
+    up_data['24_hr_volume'] = str(rec['Volume (24h)'])
+    up_data['24_hr_change'] = str(rec['% 24h'])
+    up_data['market_cap'] = str(rec['Market Cap'])
+    up_data['1_hr_change'] = str(rec['% 1h'])
+    up_data['circulating_supply']  = str(rec['Circulating Supply'])
     placeholders = ', '.join(['%s'] * len(up_data))
     columns = ', '.join(up_data.keys())
     query_string = "INSERT INTO %s ( %s ) VALUES ( %s )" % ('coin_history', columns, placeholders)
     query_string = query_string % tuple(up_data.values())
     try:
-        #db.insert(query_string)
+        db.insert(query_string)
         print "[pass", query_string
     except:
         print 'exception for ', query_string
@@ -64,8 +64,8 @@ def process_data(db, data):
     now = datetime.datetime.now()
     date_today = now.strftime("%Y-%m-%d")
     for rec in data:
-	#update_db(db, rec)
-        print rec
+	update_db(db, rec)
+        #print rec
         break	
         #res = db.cryptodata.find({"name" : coin})
         #if res.count() > 0:
