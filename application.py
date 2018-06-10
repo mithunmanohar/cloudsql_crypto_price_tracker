@@ -18,7 +18,7 @@ def get_db():
 def status():
     return json.dumps({"status":"Success"})
 
-@app.route('/get_data')
+@app.route('/get_all_data')
 def get_data():
     coin = request.args.get('coin_name')
     date = request.args.get('date')
@@ -36,9 +36,9 @@ def get_data():
     ret_data = []
 
     for each in data.fetchall():
-        for m in each:
-            print each[m]
-    return json.dumps(str(data))
+        day_data = {each['date'] : each['rank']}
+        ret_data.append(day_data)
+    return json.dumps(ret_data)
 #    for hist_data in data:
 #        for dts in hist_data['data']:
 #            ret_data.append(dts)
