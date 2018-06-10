@@ -1,14 +1,13 @@
 __author__ = "samrohn77@gmail.com"
-
+from database import Database
 from bs4 import BeautifulSoup
 import pandas as pd
-#from pymongo import MongoClient
 import requests
 import json
 import datetime
 import pytz
 import time
-from database import Database
+
 
 
 dates = ['20130428', '20130505','20130512', '20130519','20130526', '20130602',
@@ -28,8 +27,8 @@ dates = ['20130428', '20130505','20130512', '20130519','20130526', '20130602',
          '20151122','20151129','20151206','20151213', '20151227','20160103',
          '20160110','20160117','20160124','20160131','20160207','20160214',
          '20160221','20160228','20160306','20160313','20160320','20160327',
-         '20160403','20160417','20160424','20160501','20160508', '20160515']
-ap=['20160522','20160529','20160605','20160612','20160619','20160626',
+         '20160403','20160417','20160424','20160501','20160508', '20160515'
+         '20160522','20160529','20160605','20160612','20160619','20160626',
          '20160710','20160717','20160724','20160731','20160814','20160821',
          '20160828','20160904','20160911','20160918','20160925','20160703',
          '20160807','20161009','20161016','20161023', '20161030','20161106',
@@ -46,6 +45,8 @@ ap=['20160522','20160529','20160605','20160612','20160619','20160626',
          '20180211','20180218','20180225', '20180304', '20180311', '20180318',
          '20180325','20180401', '20180408', '20180415','20180422', '20180429',
          '20180506']
+
+dates = ['20180513', '20180520', '20180527', '20180603']
 
 def validate_rec(rec):
     for each in rec:
@@ -83,28 +84,7 @@ def insert_data(db, data, his_date):
         q_string = """SELECT name from coin_history where name= '%s' and date= '%s'"""%(coin, dt)
         res = db.query(q_string)
         if len(res)>=1:
-            print 'founf'
             continue
-        ##if len(res) > 0:
-        #up_data = {}
-        #up_data['date'] = "STR_TO_DATE(" + his_date + ", '%d/%m/%Y')"
-        #up_data['rank'] = rec['#']
-        #up_data['ticker'] = rec['Symbol']
-        #up_data['price'] = rec['Price']
-        #up_data['7_day_change'] = rec['% 7d']
-        #up_data['24_hr_volume'] = rec['Volume (24h)']
-        #up_data['24_hr_change'] = rec['% 24h']
-        #up_data['market_cap'] = rec['Market Cap']
-        #up_data['1_hr_change'] = rec['% 1h'].strip("%")
-        #up_data['circulating_supply']  = rec['Circulating Supply']
-        #query_string = """UPDATE TABLE coin_history SET {} """.format(','.join('{}=%s'.format(k) for k in up_data))
-        #query_string = query_string % tuple(up_data.values())
-        #query_string = query_string + """ WHERE name = '%s' """ % coin
-        #print query_string
-        #db.update(query_string.strip('Low Vol'))
-        #else:
-            ##print 'inserting coin, ', coin
-            #print rec
         up_data = {}
         up_data['name'] = '"' + coin + '"'
         up_data['date'] = "STR_TO_DATE(" + his_date + ", '%d/%m/%Y')"
@@ -134,5 +114,3 @@ if __name__ == '__main__':
         url = "https://coinmarketcap.com/historical/" + each
         data = get_cmc_data(url)
         insert_data(db, data, each)
-        #if count == 4:
-        #    break

@@ -1,12 +1,10 @@
-__author__ = "mithunmanohar79@gmail.com"
+__author__ = "samrohn77@gmail.com"
 
 
 from bs4 import BeautifulSoup
-#import pandas as pd
 import requests
 import json
 import datetime
-#import pytz
 import time
 import settings
 import traceback
