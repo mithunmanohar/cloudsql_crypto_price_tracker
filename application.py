@@ -24,15 +24,15 @@ def get_data():
     date = request.args.get('date')
     auth_key = request.args.get('auth_key')
     db = get_db()
-#    if auth_key != "fdsrtw435s6af8dsd9sa":
-#        return "{ACCESS DENIED:Authentication Failed}"
-#    if coin:
-#        coin = coin.split(",")
-#
-#    else:
-#        data = db.cryptodata.find({})
+    if auth_key != "fdsrtw435s6af8dsd9sa":
+        return "{ACCESS DENIED:Authentication Failed}"
+    if coin:
+        coin = coin
+
+    else:
+        data = db.cryptodata.find({})
     db = get_db()
-    data = db.query("select * from coin_history where name = 'BTC Bitcoin'")
+    data = db.query("select * from coin_history where name = %s")%coin
     ret_data = []
 
     for each in data.fetchall():
